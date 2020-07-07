@@ -49,18 +49,15 @@ class RepositoriesListAdapter() :
         Glide.with(holder.itemView.context).load(repository.user?.avatarUrl)
             .into(holder.itemView.reposImage)
 
-        val instant = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Instant.parse(repository.createdTime)
-        } else {
-            TODO("VERSION.SDK_INT < O")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val instant = Instant.parse(repository.createdTime)
+            val date = Date.from(instant)
+            val formatter =
+                SimpleDateFormat("yyyy-MM-dd")
+            val dateStr = formatter.format(date)
+
+            holder.itemView.timeNum.text = dateStr
         }
-
-        val date = Date.from(instant)
-        val formatter =
-            SimpleDateFormat("yyyy-MM-dd")
-        val dateStr = formatter.format(date)
-
-        holder.itemView.timeNum.text = dateStr
 
         holder.itemView.setOnClickListener {
             val bundle = Bundle()
