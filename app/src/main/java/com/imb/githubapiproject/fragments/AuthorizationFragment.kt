@@ -59,7 +59,8 @@ class AuthorizationFragment : Fragment() {
                                 com.imb.githubapiproject.utils.Settings.setUserAvatarURL(it.avatarUrl)
                                 com.imb.githubapiproject.utils.Settings.setUserName(it.username)
 
-                                navController.navigate(R.id.action_authorizationFragment_to_mainFragment)
+                                if (navController.currentDestination?.id == R.id.authorizationFragment)
+                                    navController.navigate(R.id.action_authorizationFragment_to_mainFragment)
                             } else {
                                 progressDialog.dismiss()
                                 errorTv.visibility = View.VISIBLE
